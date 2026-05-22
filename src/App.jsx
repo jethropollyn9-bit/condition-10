@@ -83,26 +83,44 @@ function HoverSlideshow({ images, altText }) {
   );
 }
 
-function AutoSlideshow({ images }) {
+// UPGRADED: Now accepts the full 'sneakers' data and the 'onAddToCart' function
+function AutoSlideshow({ sneakers, onAddToCart }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % sneakers.length);
     }, 3000); 
     return () => clearInterval(timer);
-  }, [images.length]);
+  }, [sneakers.length]);
+
+  const currentShoe = sneakers[currentIndex];
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-zinc-100">
+    // Added 'group' so the Magic Cloak works here
+    <div className="w-full h-full relative overflow-hidden bg-zinc-100 group">
       <img 
         key={currentIndex}
-        src={images[currentIndex]} 
-        alt="Featured Weekly Drop"
+        src={currentShoe.images[0]} 
+        alt={currentShoe.name}
         className="w-full h-full object-cover animate-in fade-in duration-700"
       />
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-10">
-        {images.map((_, i) => (
+      
+      {/* THE MAGIC CLOAK & DOORBELL */}
+      <div className="absolute inset-0 bg-zinc-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center z-20">
+        <button 
+          onClick={(e) => {
+            e.preventDefault(); 
+            onAddToCart(currentShoe);
+          }}
+          className="pointer-events-auto bg-zinc-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-purple-600 transition-all transform translate-y-4 group-hover:translate-y-0 shadow-2xl"
+        >
+          Quick Add
+        </button>
+      </div>
+
+      <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-30">
+        {sneakers.map((_, i) => (
           <div 
             key={i} 
             className={`h-1.5 rounded-full transition-all duration-500 ${
@@ -115,35 +133,28 @@ function AutoSlideshow({ images }) {
   );
 }
 
-/**
- * PAGE COMPONENT: Home / The Lookbook Section
- */
-function Home() {
-  const showcaseImages = featuredSneakers.map(shoe => shoe.images[0]);
-
+// Passed the onAddToCart prop into the Home page
+function Home({ onAddToCart }) {
   return (
     <div className="pt-32 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen flex flex-col justify-center">
       
-      {/* Clean, Powerful Hero Section - Text scaled up slightly for wider screens */}
       <div className="text-center mb-16 md:mb-24">
         <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter mb-6 uppercase text-zinc-900 leading-none">
-          The Vault 1s <span className="text-purple-600 block md:inline">0pen.</span>
+          The Vault <span className="text-purple-600">1</span>s <span className="text-purple-600">0</span>pen
         </h1>
         <p className="text-zinc-500 max-w-2xl mx-auto text-lg md:text-xl">
           Premium deadstock sneakers. Authenticated, perfectly preserved, and ready for your collection.
         </p>
       </div>
 
-      {/* Asymmetrical 5/7 Split to stretch the image right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
         
-        {/* Text takes up 5 out of 12 columns */}
         <div className="flex flex-col justify-center lg:col-span-5 pr-0 md:pr-8">
           <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase mb-6 leading-tight">
-            Curated drops.<br />Updated weekly.
+            Organ<span className="text-purple-600">1</span>sed Dr<span className="text-purple-600">0</span>ps updated weekly.
           </h2>
           <p className="text-zinc-500 text-lg leading-relaxed mb-8">
-            Condition 10 provides access to the most exclusive sneakers on the market. We skip the noise and focus strictly on top-tier inventory.
+            Condition <span className="text-purple-600">10</span> provides access to the most exclusive sneakers on the market. We skip the noise and focus strictly on top-tier inventory.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 text-sm font-bold tracking-widest uppercase text-zinc-900">
@@ -158,13 +169,12 @@ function Home() {
           </div>
         </div>
         
-        {/* Slideshow takes up 7 out of 12 columns, with a wider 16:10 aspect ratio */}
         <div className="lg:col-span-7 w-full shadow-2xl rounded-2xl overflow-hidden border border-zinc-100 aspect-square md:aspect-[16/10]">
-          <AutoSlideshow images={showcaseImages} />
+          {/* Passed sneakers array and logic down into the slideshow */}
+          <AutoSlideshow sneakers={featuredSneakers} onAddToCart={onAddToCart} />
         </div>
       </div>
 
-      {/* Primary CTA */}
       <div className="w-full">
         <Link 
           to="/shop" 
@@ -178,6 +188,7 @@ function Home() {
   );
 }
 
+// Removed onAddToCart from Shop page as requested
 function Shop() {
   return (
     <div className="pt-32 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen">
@@ -300,9 +311,9 @@ function App() {
             Condition<span className="text-purple-600">10</span>
           </Link>
           <div className="hidden md:flex items-center gap-12 text-[10px] font-bold tracking-widest uppercase text-zinc-400">
-            <Link to="/shop" className="hover:text-zinc-900">Inventory</Link>
-            <span className="hover:text-zinc-900 cursor-pointer">Security</span>
-            <span className="hover:text-zinc-900 cursor-pointer">About Us</span>
+            <Link to="/shop" className="hover:text-purple-600">Inventory</Link>
+            <span className="hover:text-purple-600 cursor-pointer">Security</span>
+            <span className="hover:text-purple-600 cursor-pointer">About Us</span>
           </div>
           <button 
             onClick={() => setIsCartOpen(true)}
@@ -318,7 +329,9 @@ function App() {
 
         <div className="flex-1">
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* Added onAddToCart to the Home Route */}
+            <Route path="/" element={<Home onAddToCart={handleAddToCart} />} />
+            {/* Reverted Shop Route */}
             <Route path="/shop" element={<Shop />} />
             <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
           </Routes>
@@ -340,7 +353,7 @@ function App() {
             <h2 className="text-xl font-black uppercase tracking-tighter">Your Vault</h2>
             <button 
               onClick={handleCloseDrawer}
-              className="text-zinc-400 hover:text-zinc-900 font-bold text-sm uppercase tracking-widest"
+              className="text-zinc-400 hover:text-purple-600 font-bold text-sm uppercase tracking-widest"
             >
               close
             </button>
