@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link, useParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
 
 const featuredSneakers = [
   {
@@ -112,6 +112,73 @@ const featuredSneakers = [
   }
 ];
 
+// --- NEW QUICK VIEW MODAL COMPONENT ---
+function QuickViewModal({ product, onClose, onAddToCart }) {
+  const [selectedSize, setSelectedSize] = useState(null);
+  const availableSizes = ['UK 5', 'UK 6', 'UK 7', 'UK 8', 'UK 9', 'UK 10', 'UK 11', 'UK 12'];
+
+  if (!product) return null;
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6">
+      <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
+      
+      <div className="relative bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row animate-in zoom-in-95 duration-300 max-h-[90vh]">
+        <button 
+          onClick={onClose} 
+          className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center bg-white rounded-full text-zinc-900 font-bold hover:bg-zinc-100 shadow-md transition-colors"
+        >
+          ✕
+        </button>
+        
+        <div className="w-full md:w-1/2 bg-zinc-100 flex items-center justify-center p-8">
+           <img src={product.images[0]} alt={product.name} className="w-full h-auto object-cover rounded-xl shadow-sm mix-blend-multiply" />
+        </div>
+        
+        <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center overflow-y-auto">
+           <span className="text-purple-600 font-black text-xs uppercase tracking-widest mb-2 block">{product.brand}</span>
+           <h2 className="text-3xl font-black tracking-tighter mb-2 leading-tight">{product.name}</h2>
+           <p className="text-xl font-medium text-purple-600 mb-6">£{product.price}</p>
+           
+           <div className="mb-8">
+             <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-900 mb-3">Select Size</h3>
+             <div className="grid grid-cols-4 gap-2">
+                {availableSizes.map(size => (
+                   <button 
+                    key={size} 
+                    onClick={() => setSelectedSize(size)}
+                    className={`py-3 rounded-lg border font-bold text-xs tracking-widest uppercase transition-all ${
+                      selectedSize === size
+                        ? 'border-purple-600 bg-purple-600 text-white shadow-md'
+                        : 'border-zinc-200 text-zinc-900 hover:border-purple-600'
+                    }`}
+                   >
+                     {size}
+                   </button>
+                ))}
+             </div>
+           </div>
+
+           <button 
+              disabled={!selectedSize}
+              onClick={() => {
+                onAddToCart({ ...product, selectedSize });
+                onClose(); // Auto-close modal after adding!
+              }}
+              className={`py-4 rounded-full font-bold uppercase tracking-widest transition-all shadow-xl ${
+                selectedSize 
+                  ? 'bg-zinc-900 text-white hover:bg-purple-600 hover:shadow-2xl active:scale-95 cursor-pointer' 
+                  : 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
+              }`}
+           >
+              {selectedSize ? 'Add to Cart' : 'Select a Size'}
+           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HoverSlideshow({ images, altText }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -155,7 +222,8 @@ function HoverSlideshow({ images, altText }) {
   );
 }
 
-function AutoSlideshow({ sneakers, onAddToCart }) {
+// Passed onQuickView down to AutoSlideshow
+function AutoSlideshow({ sneakers, onQuickView }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -180,11 +248,11 @@ function AutoSlideshow({ sneakers, onAddToCart }) {
         <button 
           onClick={(e) => {
             e.preventDefault(); 
-            onAddToCart({ ...currentShoe, selectedSize: 'UK 9' });
+            onQuickView(currentShoe); // Triggers modal instead of random add
           }}
-          className="pointer-events-auto bg-zinc-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-purple-600 transition-all transform translate-y-4 group-hover:translate-y-0 shadow-2xl"
+          className="pointer-events-auto bg-white text-zinc-900 px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-purple-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 shadow-2xl"
         >
-          Quick Add
+          Quick View
         </button>
       </div>
 
@@ -202,9 +270,8 @@ function AutoSlideshow({ sneakers, onAddToCart }) {
   );
 }
 
-function Home({ onAddToCart }) {
-  const showcaseImages = featuredSneakers.map(shoe => shoe.images[0]);
-
+// Passed onQuickView down to Home
+function Home({ onQuickView }) {
   return (
     <div className="pt-32 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen flex flex-col justify-center">
       
@@ -240,7 +307,7 @@ function Home({ onAddToCart }) {
         </div>
         
         <div className="lg:col-span-7 w-full shadow-2xl rounded-2xl overflow-hidden border border-zinc-100 aspect-square md:aspect-[16/10]">
-          <AutoSlideshow sneakers={featuredSneakers} onAddToCart={onAddToCart} />
+          <AutoSlideshow sneakers={featuredSneakers} onQuickView={onQuickView} />
         </div>
       </div>
 
@@ -257,7 +324,8 @@ function Home({ onAddToCart }) {
   );
 }
 
-function Shop() {
+// Passed onQuickView down to Shop
+function Shop({ onQuickView }) {
   const [selectedBrand, setSelectedBrand] = useState('All');
   const [sortOrder, setSortOrder] = useState('featured');
   const [maxPrice, setMaxPrice] = useState(2000);
@@ -282,24 +350,37 @@ function Shop() {
 
   return (
     <div className="pt-32 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen">
-      <div className="flex flex-col xl:flex-row xl:justify-between xl:items-end mb-10 border-b border-zinc-200 pb-6 gap-6">
-        <div>
-          <h1 className="text-4xl font-black tracking-tighter uppercase mb-2">The Inventory</h1>
-          <span className="text-zinc-400 font-bold text-sm tracking-widest uppercase">{displayedSneakers.length} Items</span>
+      
+      <div className="flex flex-col gap-6 mb-10 border-b border-zinc-200 pb-8">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          <div>
+            <h1 className="text-4xl font-black tracking-tighter uppercase mb-2">The Inventory</h1>
+            <span className="text-zinc-400 font-bold text-sm tracking-widest uppercase">{displayedSneakers.length} Items</span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+            <input 
+              type="text"
+              placeholder="SEARCH INVENTORY"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-zinc-100 text-zinc-900 text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full outline-none w-full sm:w-64 focus:ring-2 focus:ring-purple-600 transition-all placeholder:text-zinc-400 border-none"
+            />
+            <select 
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="w-full sm:w-auto bg-zinc-100 text-zinc-900 text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full outline-none cursor-pointer border-none appearance-none pr-10"
+              style={{ backgroundImage: "url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2318181b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px top 50%', backgroundSize: '10px auto' }}
+            >
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center w-full xl:w-auto">
-          <input 
-            type="text"
-            placeholder="SEARCH INVENTORY"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-zinc-100 text-zinc-900 text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full outline-none w-full lg:w-48 focus:ring-2 focus:ring-purple-600 transition-all placeholder:text-zinc-400 border-none"
-          />
-
-          <div className="h-6 w-px bg-zinc-200 hidden lg:block mx-1"></div>
-
-          <div className="flex flex-wrap gap-2 w-full lg:w-auto">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+          <div className="flex flex-wrap gap-2">
             {allBrands.map(brand => (
               <button
                 key={brand}
@@ -311,49 +392,70 @@ function Shop() {
                 {brand}
               </button>
             ))}
-
-            <div className="flex flex-col gap-2 w-full lg:w-48">
-              <div className="flex justify-between items-center">
-                <span className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest">Price Limit</span>
-                <span className="text-zinc-900 font-black text-sm">£{maxPrice}</span>
-              </div>
-              <input 
-                type="range" 
-                min="0" 
-                max="2000"
-                step="100"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full h-1.5 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
-              />
-            </div>
           </div>
 
-          <div className="h-6 w-px bg-zinc-200 hidden lg:block mx-1"></div>
-
-          <select 
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value)}
-            className="w-full lg:w-auto bg-zinc-100 text-zinc-900 text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-full outline-none cursor-pointer border-none appearance-none pr-10"
-            style={{ backgroundImage: "url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2318181b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')", backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px top 50%', backgroundSize: '10px auto' }}
-          >
-            <option value="featured">Featured</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="price-high">Price: High to Low</option>
-          </select>
+          <div className="flex flex-col w-full lg:w-72 shrink-0">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-purple-500 font-bold text-[10px] uppercase tracking-widest">Price range</span>
+              <span className="text-purple-600 font-black text-sm">£{maxPrice}</span>
+            </div>            
+            <input 
+              type="range" 
+              min="0" 
+              max="2000"
+              step="100"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(Number(e.target.value))}
+              className={`w-full h-3 bg-zinc-200 rounded-lg appearance-none cursor-pointer 
+                        [&::-webkit-slider-thumb]:appearance-none 
+                        [&::-webkit-slider-thumb]:w-7
+                        [&::-webkit-slider-thumb]:h-7 
+                        [&::-webkit-slider-thumb]:rounded-full
+                        [&::-webkit-slider-thumb]:shadow-md
+                        [&::-webkit-slider-thumb]:hover:scale-110
+                        [&::-webkit-slider-thumb]:transition-transform
+                        [&::-webkit-slider-thumb]:bg-center
+                        [&::-webkit-slider-thumb]:bg-no-repeat
+                        [&::-webkit-slider-thumb]:bg-[url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='32'%20height='32'%3E%3Ccircle%20cx='16'%20cy='16'%20r='14'%20fill='white'%20stroke='%239333ea'%20stroke-width='4'/%3E%3Ctext%20x='16'%20y='21'%20font-family='sans-serif'%20font-weight='900'%20font-size='14'%20fill='%239333ea'%20text-anchor='middle'%3E10%3C/text%3E%3C/svg%3E")]`}              
+            />
+            <div className="flex justify-between w-full mt-2 text-[10px] font-bold text-zinc-400 tracking-widest">
+              <button onClick={() => setMaxPrice(0)} className={`hover:text-purple-600 transition-colors ${maxPrice === 0 ? 'text-purple-600' : ''}`}>£0</button>
+              <button onClick={() => setMaxPrice(500)} className={`hover:text-purple-600 transition-colors ${maxPrice === 500 ? 'text-purple-600' : ''}`}>£500</button>
+              <button onClick={() => setMaxPrice(1000)} className={`hover:text-purple-600 transition-colors ${maxPrice === 1000 ? 'text-purple-600' : ''}`}>£1000</button>
+              <button onClick={() => setMaxPrice(1500)} className={`hover:text-purple-600 transition-colors ${maxPrice === 1500 ? 'text-purple-600' : ''}`}>£1500</button>
+              <button onClick={() => setMaxPrice(2000)} className={`hover:text-purple-600 transition-colors ${maxPrice === 2000 ? 'text-purple-600' : ''}`}>£2000</button>
+            </div>
+          </div>
         </div>
       </div>
 
       {displayedSneakers.length === 0 ? (
         <div className="py-32 text-center animate-in fade-in duration-500">
           <p className="text-zinc-900 font-black text-xl uppercase tracking-tighter">No inventory found</p>
+          <button onClick={() => { setSearchQuery(''); setSelectedBrand('All'); setMaxPrice(2000); }} className="mt-6 bg-zinc-900 text-white px-6 py-3 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-purple-600 transition-colors shadow-lg">
+            Reset Filters
+          </button>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {displayedSneakers.map((shoe) => (
             <Link to={`/product/${shoe.id}`} key={shoe.id} className="group cursor-pointer block">
-              <div className="bg-zinc-100 aspect-square overflow-hidden rounded-xl mb-4 relative shadow-sm">
+              <div className="bg-zinc-100 aspect-square overflow-hidden rounded-xl mb-4 relative shadow-sm group/image">
                 <HoverSlideshow images={shoe.images} altText={shoe.name} />
+                
+                {/* THE NEW QUICK VIEW BUTTON ON HOVER */}
+                <div className="absolute inset-0 bg-zinc-900/20 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <button 
+                    onClick={(e) => { 
+                      e.preventDefault(); 
+                      onQuickView(shoe); 
+                    }}
+                    className="bg-white text-zinc-900 px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-purple-600 hover:text-white transition-all transform translate-y-4 group-hover/image:translate-y-0 shadow-xl"
+                  >
+                    Quick View
+                  </button>
+                </div>
+
               </div>
               <div>
                 {shoe.brand} - <span className="text-purple-600 font-bold">£{shoe.price}</span>
@@ -441,12 +543,171 @@ function ProductDetail({ onAddToCart }) {
   );
 }
 
+function Security() {
+  return (
+    <div className="pt-40 pb-24 px-6 max-w-[1200px] mx-auto min-h-screen">
+      <div className="text-center mb-16">
+        <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-4">
+          The Vault is <span className="text-purple-600">Secure</span>
+        </h1>
+        <p className="text-zinc-500 font-bold tracking-widest uppercase text-sm">
+          Our 3-Step Authentication Process
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-zinc-100 p-10 rounded-2xl flex flex-col items-start hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-md">
+          <span className="text-4xl font-black text-purple-600 mb-6">01</span>
+          <h3 className="text-xl font-black uppercase tracking-tighter mb-4">Visual Inspection</h3>
+          <p className="text-zinc-500 leading-relaxed">
+            Our experts examine the overall shape, stitching patterns, and manufacturing tolerances. We check the box label fonts, date codes, and retail packaging against our database of verified retail releases.
+          </p>
+        </div>
+        <div className="bg-zinc-100 p-10 rounded-2xl flex flex-col items-start hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-md">
+          <span className="text-4xl font-black text-purple-600 mb-6">02</span>
+          <h3 className="text-xl font-black uppercase tracking-tighter mb-4">Material Verification</h3>
+          <p className="text-zinc-500 leading-relaxed">
+            Using blacklight (UV) technology, we inspect for hidden stamps, glue marks, and counterfeit manufacturer signatures. We verify the texture, smell, and flexibility of the leathers, suedes, and outsoles.
+          </p>
+        </div>
+        <div className="bg-zinc-100 p-10 rounded-2xl flex flex-col items-start hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-md">
+          <span className="text-4xl font-black text-purple-600 mb-6">03</span>
+          <h3 className="text-xl font-black uppercase tracking-tighter mb-4">Condition 10 Tagging</h3>
+          <p className="text-zinc-500 leading-relaxed">
+            Once a sneaker passes our rigorous checklist and is confirmed as deadstock (unworn and flawless), it is secured with our tamper-evident Condition 10 holographic tag. Your absolute guarantee of authenticity.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <div className="pt-40 pb-24 px-6 max-w-[1200px] mx-auto min-h-screen">
+      <div className="text-center mb-16">
+        <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-4">
+          About <span className="text-purple-600">Us</span>
+        </h1>
+        <p className="text-zinc-500 font-bold tracking-widest uppercase text-sm">
+          The Story of Condition 10
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div className="flex flex-col gap-6">
+          <h2 className="text-3xl font-black uppercase tracking-tighter">
+            Built for the <span className="text-purple-600">Purists</span>
+          </h2>
+          <p className="text-zinc-500 text-lg leading-relaxed">
+            Founded in 2026, Condition 10 was born out of frustration. The sneaker aftermarket had become too noisy, too risky, and too crowded. We wanted a place where collectors didn't have to second-guess what they were buying.
+          </p>
+          <p className="text-zinc-500 text-lg leading-relaxed">
+            We bypass the standard aftermarket to provide a curated, high-end experience for collectors who demand pristine condition and absolute authenticity. No fakes. No damaged boxes. Just Condition 10.
+          </p>
+        </div>
+
+        <div className="bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl aspect-square group">
+          <img 
+            src="https://images.unsplash.com/photo-1552346154-21d32810baa3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            alt="Sneaker Collection" 
+            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 hover:scale-105"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Auth({ onLogin }) {
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setTimeout(() => {
+    const mockUser = {
+      email: email,
+      name: email.split('@')[0] || 'Sneakerhead'
+    };
+
+    onLogin(mockUser);
+    setIsLoading(false);
+    navigate('/'); 
+    }, 2000);
+  };
+
+  return (
+    <div className="pt-40 pb-24 px-6 max-w-[500px] mx-auto min-h-screen flex flex-col justify-center">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-black tracking-tighter uppercase mb-2">
+          {isSignUp ? 'Create Vault Access' : 'Enter The Vault'}
+        </h1>
+        <p className="text-zinc-500 text-sm font-bold tracking-widest uppercase">
+          {isSignUp ? <span className="text-purple-600">Join Condition 10</span> : <span className="text-purple-600">Secure Login</span>}
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6 bg-zinc-100 p-8 rounded-2xl shadow-sm">
+        <div className="flex flex-col gap-2">
+          <label className="text-[10px] font-bold tracking-widest uppercase text-zinc-500">Email Address</label>
+          <input 
+            type="email" 
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="bg-white px-5 py-3 rounded-lg outline-none focus:ring-2 focus:ring-purple-600 transition-all font-medium text-sm border border-zinc-200"
+            placeholder="collector@example.com"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-[10px] font-bold tracking-widest uppercase text-zinc-500">Password</label>
+          <input 
+            type="password" 
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="bg-white px-5 py-3 rounded-lg outline-none focus:ring-2 focus:ring-purple-600 transition-all font-medium text-sm border border-zinc-200"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <button 
+          type="submit"
+          disabled={isLoading}
+          className="w-full bg-zinc-900 text-white py-4 rounded-full font-bold uppercase tracking-wide hover:bg-purple-600 transition-colors shadow-md mt-2"
+        >
+          {isLoading ? 'securing Connection...' : isSignUp ? 'Create Account' : 'Sign In'}
+        </button>
+      </form>
+
+      <div className="mt-8 text-center">
+        <button 
+          onClick={() => setIsSignUp(!isSignUp)}
+          className="text-xs font-bold tracking-widest uppercase text-zinc-400 hover:text-purple-600 transition-colors"
+        >
+          {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCartGlowing, setIsCartGlowing] = useState(false);
   const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
   const [glowingItemIndex, setGlowingItemIndex] = useState(null);
+  
+  // NEW STATE: Tracks which shoe is currently in the Quick View modal
+  const [quickViewItem, setQuickViewItem] = useState(null);
 
   const handleAddToCart = (shoeData) => {
     const itemSize = shoeData.selectedSize || 'UK 9';
@@ -517,30 +778,59 @@ function App() {
           <Link to="/" className="text-xl font-black tracking-tighter uppercase">
             Condition<span className="text-purple-600">10</span>
           </Link>
+          
           <div className="hidden md:flex items-center gap-12 text-[10px] font-bold tracking-widest uppercase text-zinc-400">
             <Link to="/shop" className="hover:text-purple-600">Inventory</Link>
-            <span className="hover:text-purple-600 cursor-pointer">Security</span>
-            <span className="hover:text-purple-600 cursor-pointer">About Us</span>
+            <Link to="/security" className="hover:text-purple-600">Security</Link>
+            <Link to="/about" className="hover:text-purple-600">About Us</Link>
           </div>
-          <button 
-            onClick={() => setIsCartOpen(true)}
-            className={`font-bold text-xs tracking-widest uppercase transition-all duration-300 ${
-              isCartGlowing 
-                ? 'text-purple-600 scale-125 drop-shadow-[0_0_12px_rgba(147,51,234,0.6)]' 
-                : 'text-zinc-900 hover:text-purple-600'
-            }`}
-          >
-            CART ({totalCartUnits})
-          </button>
+
+          <div className="flex items-center gap-6">
+            {currentUser ? (
+              <div className="flex items-center gap-4">
+                <span className="font-bold text-[10px] tracking-widest uppercase text-purple-600 hidden md:block">
+                  Hello, {currentUser.name}
+                </span>
+                <button onClick={() => setCurrentUser(null)} className="text-[10px] font-bold tracking-widest uppercase text-zinc-400 hover:text-red-500">
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link to="/auth" className="font-bold text-[10px] tracking-widest uppercase text-zinc-400 hover:text-purple-600">
+                Log In
+              </Link>
+            )}
+
+            <button 
+              onClick={() => setIsCartOpen(true)}
+              className={`font-bold text-xs tracking-widest uppercase transition-all duration-300 ${
+                isCartGlowing 
+                  ? 'text-purple-600 scale-125 drop-shadow-[0_0_12px_rgba(147,51,234,0.6)]' 
+                  : 'text-zinc-900 hover:text-purple-600'
+              }`}
+            >
+              CART ({totalCartUnits})
+            </button>
+          </div>
         </nav>
 
         <div className="flex-1">
           <Routes>
-            <Route path="/" element={<Home onAddToCart={handleAddToCart} />} />
-            <Route path="/shop" element={<Shop />} />
+            <Route path="/" element={<Home onQuickView={setQuickViewItem} />} />
+            <Route path="/shop" element={<Shop onQuickView={setQuickViewItem} />} />
             <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
+            <Route path="/security" element={<Security />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/auth" element={<Auth onLogin={(userData) => setCurrentUser(userData)} />} />
           </Routes>
         </div>
+
+        {/* THE QUICK VIEW MODAL TRIGGER */}
+        <QuickViewModal 
+          product={quickViewItem} 
+          onClose={() => setQuickViewItem(null)} 
+          onAddToCart={handleAddToCart} 
+        />
 
         {isCartOpen && (
           <div 
