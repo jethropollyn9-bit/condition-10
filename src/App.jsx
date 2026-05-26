@@ -109,6 +109,136 @@ const featuredSneakers = [
       "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1514989940723-e8e51635b782?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     ]
+  },
+  {
+    id: 10,
+    brand: "Reebok",
+    name: "Classic Leather 'White'",
+    price: 120,
+    description: "The iconic Reebok Classic Leather returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 11,
+    brand: "Reebok",
+    name: "Classic Leather 'Black'",
+    price: 120,
+    description: "The iconic Reebok Classic Leather returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 12,
+    brand: "Jordan",
+    name: "Air Jordan 4 'Bred' (2019)",
+    price: 190,
+    description: "The 'Bred' colorway is one of the most beloved in the Jordan lineup. The 2019 retro stays true to the original with premium materials and impeccable craftsmanship.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 13,
+    brand: "Nike",
+    name: "Air Max 90 'White'",
+    price: 140,
+    description: "The Air Max 90 returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 14,
+    brand: "nike",
+    name: "Air Max 95 'Neon'",
+    price: 150,
+    description: "The Air Max 95 'Neon' returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 15,
+    brand: "nike",
+    name: "Air Max 97 'Silver Bullet'",
+    price: 160,
+    description: "The Air Max 97 'Silver Bullet' returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 16,
+    brand: "nike",
+    name: "cortez 'White/Red'",
+    price: 130,
+    description: "The cortez 'White/Red' returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 17,
+    brand: "nike",
+    name: "Air Force 1 'White'",
+    price: 120,
+    description: "The Air Force 1 'White' returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 18,
+    brand: "adidas",
+    name: "Stan Smith 'White'",
+    price: 110,
+    description: "The Stan Smith 'White' returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 19,
+    brand: "adidas",
+    name: "Ultraboost 'White'",
+    price: 180,
+    description: "The Ultraboost 'White' returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543508376-9eac9526c7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 20,
+    brand: "adidas",
+    name: "mary jane 'White'",
+    price: 160,
+    description: "The mary jane 'White' returns with a fresh colorway and updated materials for a modern take on a timeless design.",
+    images: [
+      "https://assets.adidas.com/images/w_600,f_auto,q_auto/262ed28d087145dca9e94427bb2b3bd5_faec/Samba_Jane_Shoes_White_JR1402_db01_00_standard.tiff.jpg"
+    ]
   }
 ];
 
@@ -270,62 +400,120 @@ function AutoSlideshow({ sneakers, onQuickView }) {
   );
 }
 
-// Passed onQuickView down to Home
-function Home({ onQuickView }) {
-  return (
-    <div className="pt-32 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen flex flex-col justify-center">
-      
-      <div className="text-center mb-16 md:mb-24">
-        <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter mb-6 uppercase text-zinc-900 leading-none">
-          The Vault <span className="text-purple-600">1</span>s <span className="text-purple-600">0</span>pen
-        </h1>
-        <p className="text-zinc-500 max-w-2xl mx-auto text-lg md:text-xl">
-          Premium deadstock sneakers. Authenticated, perfectly preserved, and ready for your collection.
-        </p>
-      </div>
+function RecentlyViewedShelf({ items }) {
+  // If the shelf is empty, stay completely invisible!
+  if (!items || items.length === 0) return null;
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
+  return (
+    <div className="mt-24 border-t border-zinc-200 pt-16">
+      <h3 className="text-xl font-black uppercase tracking-tighter mb-8">Recently Viewed</h3>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {items.map((shoe) => (
+          <Link to={`/product/${shoe.id}`} key={shoe.id} className="group block">
+            <div className="bg-zinc-100 aspect-square rounded-xl overflow-hidden mb-3 shadow-sm">
+              <img src={shoe.images[0]} alt={shoe.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            </div>
+            <span className="text-[10px] font-bold tracking-widest uppercase text-zinc-400 block">{shoe.brand}</span>
+            <h4 className="font-bold text-sm leading-tight mt-0.5 group-hover:text-purple-600 truncate">{shoe.name}</h4>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Passed onQuickView down to Home
+function CountdownBanner() {
+  const [timeLeft, setTimeLeft] = useState(24 * 60 * 60);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const hours = Math.floor(timeLeft / 3600);
+  const minutes = Math.floor((timeLeft % 3600) / 60);
+  const seconds = timeLeft % 60;
+
+  const displayHours = String(hours).padStart(2, '0');
+  const displayMinutes = String(minutes).padStart(2, '0');
+  const displaySeconds = String(seconds).padStart(2, '0');
+
+  return (
+      <div className="w-full bg-purple-700 text-white py-3 px-6 flex flex-col md:flex-row justify-center items-center gap-4 text-xs font-bold tracking-widest uppercase shadow-md">
+      <span className="text-white text-[15px] animate-pulse">Shock Drop In:</span>
+      
+      <div className="flex gap-2 text-sm tabular-nums">
+        <span>{displayHours}<span className="text-white-500 text-[30px] ml-1">:HR</span></span>
+        <span>{displayMinutes}<span className="text-white-500 text-[30px] ml-1">:MIN</span></span>
+        <span>{displaySeconds}<span className="text-white-500 text-[30px] ml-1">:SEC</span></span>
+      </div>
+      
+      <button className="bg-white text-zinc-900 px-4 py-1.5 rounded-full text-[10px] hover:bg-zinc-900 hover:text-white transition-colors cursor-pointer shadow-sm active:scale-95">
+        Notify Me
+      </button>
+    </div>
+  );
+}
+function Home({ onQuickView, recentlyViewed }) {
+  return (
+    // 1. THE NEW OUTER HOUSE: This stretches all the way across the screen and clears the top nav bar (pt-20)
+    <div className="w-full pt-19 min-h-screen flex flex-col">
+      
+      {/* 2. THE BANNER: It sits here, free to stretch edge-to-edge! */}
+      <CountdownBanner />
+
+      {/* 3. THE RESTRICTED ROOM: This is the max-w-[1400px] box for your content */}
+      <div className="px-6 max-w-[1400px] mx-auto w-full flex-1 flex flex-col pt-12 pb-24">
         
-        <div className="flex flex-col justify-center lg:col-span-5 pr-0 md:pr-8">
-          <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase mb-6 leading-tight">
-            Organ<span className="text-purple-600">1</span>sed Dr<span className="text-purple-600">0</span>ps updated weekly.
-          </h2>
-          <p className="text-zinc-500 text-lg leading-relaxed mb-8">
-            Condition <span className="text-purple-600">10</span> provides access to the most exclusive sneakers on the market. We skip the noise and focus strictly on top-tier inventory.
+        <div className="text-center mb-16 md:mb-24">
+          <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter mb-6 uppercase text-zinc-900 leading-none">
+            The Vault <span className="text-purple-600">1</span>s <span className="text-purple-600">0</span>pen
+          </h1>
+          <p className="text-zinc-500 max-w-2xl mx-auto text-lg md:text-xl">
+            Premium deadstock sneakers. Authenticated, perfectly preserved, and ready for your collection.
           </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
           
-          <div className="flex flex-col sm:flex-row gap-6 text-sm font-bold tracking-widest uppercase text-zinc-900">
-            <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-100 text-purple-600">✓</span> 
-              Verified Authentic
+          <div className="flex flex-col justify-center lg:col-span-5 pr-0 md:pr-8">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase mb-6 leading-tight">
+              Organ<span className="text-purple-600">1</span>sed Dr<span className="text-purple-600">0</span>ps updated weekly.
+            </h2>
+            <p className="text-zinc-500 text-lg leading-relaxed mb-8">
+              Condition <span className="text-purple-600">10</span> provides access to the most exclusive sneakers on the market. We skip the noise and focus strictly on top-tier inventory.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 text-sm font-bold tracking-widest uppercase text-zinc-900">
+              <div className="flex items-center gap-3">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-100 text-purple-600">✓</span> 
+                Verified Authentic
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-100 text-purple-600">✓</span> 
+                Pristine Condition
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-100 text-purple-600">✓</span> 
-              Pristine Condition
-            </div>
+          </div>
+          
+          <div className="lg:col-span-7 w-full shadow-2xl rounded-2xl overflow-hidden border border-zinc-100 aspect-square md:aspect-[16/10]">
+            <AutoSlideshow sneakers={featuredSneakers} onQuickView={onQuickView} />
           </div>
         </div>
         
-        <div className="lg:col-span-7 w-full shadow-2xl rounded-2xl overflow-hidden border border-zinc-100 aspect-square md:aspect-[16/10]">
-          <AutoSlideshow sneakers={featuredSneakers} onQuickView={onQuickView} />
-        </div>
+        {/* RECENTLY VIEWED SHELF */}
+        <RecentlyViewedShelf items={recentlyViewed} />
+        
       </div>
-
-      <div className="w-full">
-        <Link 
-          to="/shop" 
-          className="block w-full bg-zinc-900 text-white text-center py-6 md:py-8 rounded-2xl font-black text-xl md:text-2xl uppercase tracking-widest hover:bg-purple-600 transition-colors shadow-xl hover:shadow-2xl active:scale-95 transition-all"
-        >
-          Enter The Vault
-        </Link>
-      </div>
-
     </div>
   );
 }
 
 // Passed onQuickView down to Shop
-function Shop({ onQuickView }) {
+function Shop({ onQuickView, recentlyViewed }) {
   const [selectedBrand, setSelectedBrand] = useState('All');
   const [sortOrder, setSortOrder] = useState('featured');
   const [maxPrice, setMaxPrice] = useState(2000);
@@ -465,22 +653,33 @@ function Shop({ onQuickView }) {
           ))}
         </div>
       )}
+
+      <RecentlyViewedShelf items={recentlyViewed} />
     </div>
   );
 }
 
-function ProductDetail({ onAddToCart }) {
+// 1. Tell it to accept the onTrackView function!
+function ProductDetail({ onAddToCart, onTrackView }) {
   const { id } = useParams();
   const product = featuredSneakers.find(shoe => shoe.id === parseInt(id));
   
   const [selectedSize, setSelectedSize] = useState(null);
   const availableSizes = ['UK 5', 'UK 5.5', 'UK 6', 'UK 6.5', 'UK 7', 'UK 7.5', 'UK 8', 'UK 8.5', 'UK 9', 'UK 9.5', 'UK 10', 'UK 10.5', 'UK 11', 'UK 11.5', 'UK 12'];
 
+  // 2. NEW MAGIC: When this page opens, immediately record the shoe!
+  useEffect(() => {
+    if (product) {
+      onTrackView(product);
+    }
+  }, [product, onTrackView]);
+
   if (!product) {
     return <div className="pt-40 text-center font-bold text-2xl">Product not found.</div>;
   }
 
   return (
+    // ... KEEP THE REST OF YOUR PRODUCT DETAIL CODE THE SAME ...
     <div className="pt-32 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen">
       <Link to="/shop" className="text-sm font-bold text-zinc-400 hover:text-purple-600 mb-8 inline-block uppercase tracking-widest">
         ← Back to Inventory
@@ -701,11 +900,19 @@ function Auth({ onLogin }) {
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCartGlowing, setIsCartGlowing] = useState(false);
   const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
   const [glowingItemIndex, setGlowingItemIndex] = useState(null);
-  
+
+  const handleTrackView = (shoe) => {
+    setRecentlyViewed((prevShelf) => {
+      const shelfWithoutDuplicate = prevShelf.filter(item => item.id !== shoe.id);
+      return [shoe, ...shelfWithoutDuplicate].slice(0, 4);
+    });
+  };
+
   // NEW STATE: Tracks which shoe is currently in the Quick View modal
   const [quickViewItem, setQuickViewItem] = useState(null);
 
@@ -774,7 +981,7 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-white text-zinc-900 font-sans overflow-x-hidden relative flex flex-col">
         
-        <nav className="fixed top-0 w-full z-30 bg-white/90 backdrop-blur-md flex justify-between items-center p-6 border-b border-zinc-100">
+<nav className="fixed top-0 w-full z-30 bg-white/90 backdrop-blur-md flex justify-between items-center p-6 shadow-xl shadow-zinc-900/10">
           <Link to="/" className="text-xl font-black tracking-tighter uppercase">
             Condition<span className="text-purple-600">10</span>
           </Link>
@@ -816,12 +1023,12 @@ function App() {
 
         <div className="flex-1">
           <Routes>
-            <Route path="/" element={<Home onQuickView={setQuickViewItem} />} />
-            <Route path="/shop" element={<Shop onQuickView={setQuickViewItem} />} />
-            <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
-            <Route path="/security" element={<Security />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/auth" element={<Auth onLogin={(userData) => setCurrentUser(userData)} />} />
+        <Route path="/" element={<Home onQuickView={(shoe) => { setQuickViewItem(shoe); handleTrackView(shoe); }} recentlyViewed={recentlyViewed} />}/>
+        <Route path="/shop" element={<Shop onQuickView={(shoe) => { setQuickViewItem(shoe); handleTrackView(shoe); }} recentlyViewed={recentlyViewed} />}/>
+        <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} onTrackView={handleTrackView} />} />               
+        <Route path="/security" element={<Security />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/auth" element={<Auth onLogin={(userData) => setCurrentUser(userData)} />} />
           </Routes>
         </div>
 
