@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 
-// ==========================================
-// 1. DATA INVENTORY
-// ==========================================
 const featuredSneakers = [
   {
     id: 1, brand: "Nike", name: "ACG Phassad 'Black/Yellow'", price: 110, gender: "Unisex", 
@@ -107,9 +104,6 @@ const featuredSneakers = [
   }
 ];
 
-// ==========================================
-// 2. HELPER COMPONENTS & UTILS
-// ==========================================
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -257,9 +251,6 @@ function QuickViewModal({ product, onClose, onAddToCart }) {
   );
 }
 
-// ==========================================
-// 3. PAGE COMPONENTS
-// ==========================================
 function Home({ onAddToCart, recentlyViewed }) {
   return (
     <div className="w-full pt-[76px] min-h-screen flex flex-col">
@@ -558,9 +549,6 @@ function Auth({ onLogin }) {
   );
 }
 
-// ==========================================
-// 4. MAIN APP ENGINE
-// ==========================================
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
@@ -570,6 +558,7 @@ export default function App() {
   const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
   const [glowingItemIndex, setGlowingItemIndex] = useState(null);
   const [quickViewItem, setQuickViewItem] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleTrackView = (shoe) => setRecentlyViewed((prev) => [shoe, ...prev.filter(item => item.id !== shoe.id)].slice(0, 4));
 
@@ -596,7 +585,7 @@ export default function App() {
     if (amount === 1) { setGlowingItemIndex(index); setTimeout(() => setGlowingItemIndex(null), 300); }
     setCartItems(prev => {
       const newCart = [...prev];
-      const newQuantity = newCart[index].quantity + amount; // 👈 Fixed missing 'const'
+      const newQuantity = newCart[index].quantity + amount; 
       return newQuantity < 1 ? prev.filter((_, i) => i !== index) : Object.assign(newCart, { [index]: { ...newCart[index], quantity: newQuantity }});
     });
   };
@@ -612,15 +601,16 @@ export default function App() {
   };
 
   const totalCartUnits = cartItems.reduce((total, item) => total + item.quantity, 0);
-  const cartSubtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0); // 👈 Restored Subtotal math
+  const cartSubtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0); 
 
   return (
     <BrowserRouter>
       <ScrollToTop /> 
       
       <div className="min-h-screen bg-white text-zinc-900 font-sans overflow-x-hidden relative flex flex-col">
-        <nav className="fixed top-0 w-full z-[100] bg-white/90 backdrop-blur-md flex justify-between items-center p-6 shadow-xl shadow-zinc-900/10">
-          <Link to="/" className="text-xl font-black tracking-tighter uppercase cursor-pointer">Condition<span className="text-purple-600">10</span></Link>
+        
+        <nav className="fixed top-0 w-full z-[100] bg-white/90 backdrop-blur-md flex justify-between items-center p-4 md:p-6 shadow-xl shadow-zinc-900/10">
+          <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-black tracking-tighter uppercase cursor-pointer z-[110]">Condition<span className="text-purple-600">10</span></Link>
           
           <div className="hidden md:flex items-center gap-12 text-[10px] font-bold tracking-widest uppercase text-zinc-400">
             <Link to="/shop" className="hover:text-purple-600 cursor-pointer">Inventory</Link>
@@ -628,22 +618,47 @@ export default function App() {
             <Link to="/about" className="hover:text-purple-600 cursor-pointer">About Us</Link>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 md:gap-6 z-[110]">
             {currentUser ? (
-              <div className="flex items-center gap-4">
-                <span className="font-bold text-[10px] tracking-widest uppercase text-purple-600 hidden md:block">Hello, {currentUser.name}</span>
+              <div className="hidden sm:flex items-center gap-4">
+                <span className="font-bold text-[10px] tracking-widest uppercase text-purple-600">Hello, {currentUser.name}</span>
                 <button onClick={() => setCurrentUser(null)} className="text-[10px] font-bold tracking-widest uppercase text-zinc-400 hover:text-red-500 cursor-pointer">Logout</button>
               </div>
             ) : (
-              <Link to="/auth" className="font-bold text-[10px] tracking-widest uppercase text-zinc-400 hover:text-purple-600 cursor-pointer">Log In</Link>
+              <Link to="/auth" className="hidden sm:block font-bold text-[10px] tracking-widest uppercase text-zinc-400 hover:text-purple-600 cursor-pointer">Log In</Link>
             )}
+            
             <button onClick={() => setIsCartOpen(true)} className={`font-bold text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer ${isCartGlowing ? 'text-purple-600 scale-125 drop-shadow-[0_0_12px_rgba(147,51,234,0.6)]' : 'text-zinc-900 hover:text-purple-600'}`}>CART ({totalCartUnits})</button>
+
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="group md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1 cursor-pointer ml-2">
+              <span className={`block w-5 h-0.5 transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5 bg-zinc-900 group-hover:bg-red-500 group-hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]' : 'bg-zinc-900 group-hover:bg-purple-600 group-hover:drop-shadow-[0_0_8px_rgba(147,51,234,0.8)]'}`}></span>
+              <span className={`block w-5 h-0.5 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0 bg-zinc-900' : 'bg-zinc-900 group-hover:bg-purple-600 group-hover:drop-shadow-[0_0_8px_rgba(147,51,234,0.8)]'}`}></span>
+              <span className={`block w-5 h-0.5 transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5 bg-zinc-900 group-hover:bg-red-500 group-hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]' : 'bg-zinc-900 group-hover:bg-purple-600 group-hover:drop-shadow-[0_0_8px_rgba(147,51,234,0.8)]'}`}></span>
+            </button>
           </div>
         </nav>
 
+        <div className={`fixed inset-0 bg-white z-[90] flex flex-col justify-center items-center gap-8 transition-transform duration-300 ease-in-out md:hidden ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+          <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-black uppercase tracking-tighter hover:text-purple-600">Inventory</Link>
+          <Link to="/security" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-black uppercase tracking-tighter hover:text-purple-600">Security</Link>
+          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-black uppercase tracking-tighter hover:text-purple-600">About Us</Link>
+          
+          <div className="mt-8 flex flex-col items-center gap-4">
+            {!currentUser ? (
+              <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-purple-600">Log In / Register</Link>
+            ) : (
+              <>
+                <span className="font-bold text-xs tracking-widest uppercase text-purple-600">Vault Access: {currentUser.name}</span>
+                <button onClick={() => { setCurrentUser(null); setIsMobileMenuOpen(false); }} className="text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-red-500">Logout</button>
+              </>
+            )}
+          </div>
+        </div>
+
         <div className="flex-1">
           <Routes>
-            <Route path="/" element={<Home onAddToCart={handleAddToCart} recentlyViewed={recentlyViewed} />}/>            <Route path="/shop" element={<Shop onQuickView={(shoe) => { setQuickViewItem(shoe); handleTrackView(shoe); }} recentlyViewed={recentlyViewed} />}/>
+            <Route path="/" element={<Home onAddToCart={handleAddToCart} recentlyViewed={recentlyViewed} />}/>            
+            <Route path="/shop" element={<Shop onQuickView={(shoe) => { setQuickViewItem(shoe); handleTrackView(shoe); }} recentlyViewed={recentlyViewed} />}/>
             <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} onTrackView={handleTrackView} />} />               
             <Route path="/security" element={<Security />} />
             <Route path="/about" element={<About />} />
