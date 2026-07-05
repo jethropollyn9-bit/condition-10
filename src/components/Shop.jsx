@@ -50,14 +50,15 @@ const handleAiSearch = async (e) => {
     }
   };
 
-  let displayedSneakers = featuredSneakers.filter(shoe => {
-    const matchesBrand = selectedBrand === 'All' || shoe.brand === selectedBrand;
+let displayedSneakers = featuredSneakers.filter(shoe => {
+    const matchesBrand = selectedBrand === 'All' || shoe.brand.toLowerCase() === selectedBrand.toLowerCase();
     const matchesGender = selectedGender === 'All' || shoe.gender === selectedGender || shoe.gender === 'Unisex';
-    const searchLower = searchQuery.toLowerCase();
-    const matchesSearch = shoe.name.toLowerCase().includes(searchLower) || shoe.brand.toLowerCase().includes(searchLower) || shoe.description.toLowerCase().includes(searchLower);
+    const searchWords = searchQuery.toLowerCase().split(' ').filter(word => word.length > 0);
+    const searchableText = `${shoe.name} ${shoe.brand} ${shoe.description}`.toLowerCase();
+    const matchesSearch = searchWords.every(word => searchableText.includes(word));
+    
     return matchesBrand && matchesGender && matchesSearch; 
   });
-
   if (sortOrder === 'price-low') displayedSneakers.sort((a, b) => a.price - b.price);
   else if (sortOrder === 'price-high') displayedSneakers.sort((a, b) => b.price - a.price);
 
