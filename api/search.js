@@ -23,7 +23,9 @@ export default async function handler(req, res) {
       - "brand": A specific brand name (e.g., "Nike", "Adidas", "New Balance") or "All".
       - "gender": Exactly "Men", "Women", "Unisex", or "All".
       - "maxPrice": A number. If no price is mentioned, use 2000.
-      - "searchQuery": Extract ONLY the core descriptive keywords as a single space-separated string (e.g., "black yellow suede"). 
+      - "searchQuery": Extract the core descriptive keywords as a single space-separated string. 
+        CRITICAL: If the user asks for an abstract style (e.g., "casual", "workout", "hype"), DO NOT output the abstract word. Instead, translate it into tangible models, materials, or brands that fit that vibe (e.g., output "Samba", "New Balance", "canvas", or "Jordan"). 
+        DO NOT include filler words like "shoes", "pair", or "looking for". If no specific descriptor is found, use an empty string "".
       - CRITICAL: DO NOT include filler words, pronouns, or conjunctions like "and", "with", "shoes", "sneakers", "pair", or "show me". If no specific descriptor is found, use an empty string "".
 
       User Request: "${userQuery}"
