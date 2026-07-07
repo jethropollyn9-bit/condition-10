@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       - "brand": A specific brand name (e.g., "Nike", "Adidas", "New Balance") or "All".
       - "gender": Exactly "Men", "Women", "Unisex", or "All".
       - "maxPrice": A number. If no price is mentioned, use 2000.
-      - "searchQuery": Extract the core descriptive keywords as a single space-separated string. 
+      - "searchQuery": Extract ONLY explicit colors, materials, or shoe models. CRITICAL: Completely IGNORE abstract vibes, occasions, or adjectives (like "casual", "party", "summer", "clean"). If the user asks for "something red for a party", your searchQuery MUST ONLY be "red". If no specific color or model is found, use an empty string "".
         CRITICAL: If the user asks for an abstract style (e.g., "casual", "workout", "hype"), DO NOT output the abstract word. Instead, translate it into tangible models, materials, or brands that fit that vibe (e.g., output "Samba", "New Balance", "canvas", or "Jordan"). 
       - CRITICAL: DO NOT include filler words, pronouns, or conjunctions like "and", "with", "shoes", "sneakers", "pair", or "show me". If no specific descriptor is found, use an empty string "".
       - OUT OF SCOPE: If the user asks for an item completely unrelated to clothing or footwear (like books, food, cars, etc.), you must return a JSON object with a SINGLE field called 'error'. Make the error message fit the context of an exclusive sneaker store.

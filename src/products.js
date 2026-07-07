@@ -98,5 +98,17 @@ export const featuredSneakers = [
     id: 20, brand: "adidas", name: "mary jane 'White'", price: 160, gender: "Women", color: "White", stockLevel: 6,
     description: "THE CLASSIC SAMBA SHOES, REIMAGINED AS MARY JANES. The adidas Samba shoes get a modern makeover, blending into a trendy Mary Jane aesthetic.",
     images: ["https://assets.adidas.com/images/w_600,f_auto,q_auto/262ed28d087145dca9e94427bb2b3bd5_faec/Samba_Jane_Shoes_White_JR1402_db01_00_standard.tiff.jpg"]
+  },
+  {
+    id: 21,
+    name: "Jordan 4 Retro", brand: "Nike", price: 340, gender: "Men", stockLevel: 4,
+    description: "The Toro Bravo colorway brings a bold, striking red suede upper to the classic Jordan 4 silhouette. A perfect statement piece to turn heads at any party.",     
+    images: ["https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80"],
+  },
+  {
+    id: 22,
+    name: "Travis Scott x Air Jordan 1 Low", brand: "Nike", price: 1150, gender: "Unisex", stockLevel: 2,
+    description: "The Reverse Mocha flips the iconic brown and sail color-blocking. Featuring premium suede and the signature oversized backward Swoosh, it is the ultimate casual grail.",
+    images: ["https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80"],
   }
 ];
