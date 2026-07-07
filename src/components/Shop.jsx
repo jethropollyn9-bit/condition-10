@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { featuredSneakers } from '../products'; 
 import HoverSlideshow from './HoverSlideshow';
 import RecentlyViewedShelf from './RecentlyViewedShelf';
 
-function Shop({ onQuickView, recentlyViewed }) {
+export default function Shop({ inventory, onQuickView, recentlyViewed }) {
   const [selectedBrand, setSelectedBrand] = useState('All');
   const [selectedGender, setSelectedGender] = useState('All');
   const [sortOrder, setSortOrder] = useState('featured');
   const [maxPrice, setMaxPrice] = useState(2000);
   const [searchQuery, setSearchQuery] = useState('');
-  const allBrands = ['All', ...new Set(featuredSneakers.map(shoe => shoe.brand))];
+  
+  // Now dynamically generates brands from the live inventory state
+  const allBrands = ['All', ...new Set(inventory.map(shoe => shoe.brand))];
+  
   const [aiQuery, setAiQuery] = useState('');
   const [isAiLoading, setIsAiLoading] = useState(false);
 
-const handleAiSearch = async (e) => {
+  const handleAiSearch = async (e) => {
     e.preventDefault();
     if (!aiQuery.trim()) return;
 
@@ -50,7 +52,8 @@ const handleAiSearch = async (e) => {
     }
   };
 
-let displayedSneakers = featuredSneakers.filter(shoe => {
+  // Uses the LIVE inventory passed down from App.jsx
+  let displayedSneakers = inventory.filter(shoe => {
     const matchesBrand = selectedBrand === 'All' || shoe.brand.toLowerCase() === selectedBrand.toLowerCase();
     const matchesGender = selectedGender === 'All' || shoe.gender === selectedGender || shoe.gender === 'Unisex';
     const searchWords = searchQuery.toLowerCase().split(' ').filter(word => word.length > 0);
@@ -59,6 +62,7 @@ let displayedSneakers = featuredSneakers.filter(shoe => {
     
     return matchesBrand && matchesGender && matchesSearch;
   });
+
   if (sortOrder === 'price-low') displayedSneakers.sort((a, b) => a.price - b.price);
   else if (sortOrder === 'price-high') displayedSneakers.sort((a, b) => b.price - a.price);
 
@@ -88,7 +92,7 @@ let displayedSneakers = featuredSneakers.filter(shoe => {
           {/* New AI Search Bar Row */}
           <form onSubmit={handleAiSearch} className="w-full bg-purple-50 rounded-2xl p-4 border border-purple-100 flex flex-col sm:flex-row gap-3 items-center shadow-inner">
             <div className="flex-1 w-full flex items-center gap-3 bg-white px-5 py-3.5 rounded-xl shadow-sm border border-purple-50 focus-within:ring-2 focus-within:ring-purple-600 transition-all">
-              <span className="text-xl"></span>
+              <span className="text-xl">✨</span>
               <input 
                 type="text" 
                 placeholder='e.g., "Show me casual white trainers under £150"'
@@ -150,6 +154,20 @@ let displayedSneakers = featuredSneakers.filter(shoe => {
               </div>
               <div>{shoe.brand} - <span className="text-purple-600 font-bold">£{shoe.price}</span></div>
               <h3 className="font-bold text-lg leading-tight mt-1 group-hover:text-purple-600">{shoe.name}</h3>
+              
+              {/* THE FOMO ENGINE / SOLD OUT LOGIC */}
+              {shoe.stockLevel === 0 ? (
+                <div className="mt-2.5 inline-block bg-zinc-900 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-sm">
+                  Sold Out
+                </div>
+              ) : shoe.stockLevel < 5 && shoe.stockLevel > 0 ? (
+                <div className="flex items-center gap-1.5 mt-2.5">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                  <span className="text-red-500 text-[10px] font-black uppercase tracking-widest">
+                    Only {shoe.stockLevel} left in vault
+                  </span>
+                </div>
+              ) : null}
             </Link>
           ))}
         </div>
@@ -158,5 +176,3 @@ let displayedSneakers = featuredSneakers.filter(shoe => {
     </div>
   );
 }
-
-export default Shop;
