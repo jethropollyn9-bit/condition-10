@@ -106,7 +106,7 @@ export default function Shop({ inventory, onQuickView, recentlyViewed }) {
           <div className="flex flex-col gap-3">
             <form onSubmit={handleAiSearch} className="w-full bg-purple-50 rounded-2xl p-4 border border-purple-100 flex flex-col sm:flex-row gap-3 items-center shadow-inner">
               <div className="flex-1 w-full flex items-center gap-3 bg-white px-5 py-3.5 rounded-xl shadow-sm border border-purple-50 focus-within:ring-2 focus-within:ring-purple-600 transition-all">
-                <span className="text-xl">✨</span>
+                <span className="text-xl"></span>
                 <input 
                   type="text" 
                   placeholder='e.g., "Show me casual white trainers under £150"'
