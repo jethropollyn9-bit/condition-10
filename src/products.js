@@ -101,13 +101,13 @@ export const featuredSneakers = [
   },
   {
     id: 21,
-    name: "Jordan 4 Retro", brand: "Nike", price: 340, gender: "Men", stockLevel: 4,
+    name: "Jordan 4 Retro", brand: "Nike", price: 340, gender: "Men", color: "Red", stockLevel: 4,
     description: "The Toro Bravo colorway brings a bold, striking red suede upper to the classic Jordan 4 silhouette. A perfect statement piece to turn heads at any party.",     
     images: ["https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80"],
   },
   {
     id: 22,
-    name: "Travis Scott x Air Jordan 1 Low", brand: "Nike", price: 1150, gender: "Unisex", stockLevel: 2,
+    name: "Travis Scott x Air Jordan 1 Low", brand: "Nike", price: 1150, gender: "Unisex", color: "Brown/White", stockLevel: 2,
     description: "The Reverse Mocha flips the iconic brown and sail color-blocking. Featuring premium suede and the signature oversized backward Swoosh, it is the ultimate casual grail.",
     images: ["https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80"],
   }

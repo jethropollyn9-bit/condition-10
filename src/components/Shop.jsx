@@ -71,7 +71,7 @@ let displayedSneakers = inventory.filter(shoe => {
     const matchesBrand = selectedBrand === 'All' || shoe.brand.toLowerCase() === selectedBrand.toLowerCase();
     const matchesGender = selectedGender === 'All' || shoe.gender === selectedGender || shoe.gender === 'Unisex';    
     const searchWords = searchQuery.toLowerCase().split(' ').filter(word => word.length > 0);
-    const searchableText = `${shoe.name} ${shoe.brand} ${shoe.description}`;
+    const searchableText = `${shoe.name} ${shoe.brand} ${shoe.color || ''} ${shoe.description}`;
     const matchesSearch = searchWords.every(word => {
     const regex = new RegExp(`\\b${word}\\b`, 'i');
       return regex.test(searchableText);
