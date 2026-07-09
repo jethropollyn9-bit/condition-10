@@ -196,7 +196,7 @@ export default function Shop({ inventory, onQuickView, recentlyViewed }) {
             {areFiltersActive && (
               <button 
                 onClick={handleReset} 
-                className="text-zinc-400 hover:text-red-500 font-bold uppercase tracking-widest text-[10px] underline underline-offset-4 transition-colors cursor-pointer"
+                className="text-zinc-400 hover:text-purple-600 font-bold uppercase tracking-widest text-[10px] underline underline-offset-4 transition-colors cursor-pointer"
               >
                 Reset All Filters
               </button>
