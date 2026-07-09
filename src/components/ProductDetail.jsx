@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import HoverSlideshow from './HoverSlideshow';
 
-export default function ProductDetail({ inventory, onAddToCart, onTrackView }) {
+export default function ProductDetail({ inventory, cartItems = [], onAddToCart, onTrackView }) {
   const { id } = useParams();
   const product = inventory.find(shoe => shoe.id === parseInt(id));
   const [selectedSize, setSelectedSize] = useState(null);
@@ -20,6 +20,8 @@ export default function ProductDetail({ inventory, onAddToCart, onTrackView }) {
   const maxLength = 150;
   const shouldTruncate = product.description.length > maxLength;
   const displayText = shouldTruncate && !isExpanded ? product.description.slice(0, maxLength) + '...' : product.description;
+  const qtyInCart = cartItems.filter(item => item.id === product.id).reduce((sum, item) => sum + item.quantity, 0);
+  const isMaxStockReached = qtyInCart >= product.stockLevel;
 
   return (
     <div className="pt-32 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen">
@@ -50,19 +52,25 @@ export default function ProductDetail({ inventory, onAddToCart, onTrackView }) {
             </div>
           </div>
           
-          {/* REPAIRED ADD TO CART BUTTON */}
+          {/* UPGRADED ADD TO CART BUTTON */}
           <button 
-            disabled={product.stockLevel === 0 || !selectedSize} 
+            disabled={product.stockLevel === 0 || !selectedSize || isMaxStockReached} 
             onClick={() => onAddToCart({ ...product, selectedSize })} 
             className={`py-5 rounded-full font-bold uppercase tracking-widest transition-all shadow-xl ${
-              product.stockLevel === 0
+              product.stockLevel === 0 || isMaxStockReached
                 ? 'bg-zinc-200 text-zinc-500 cursor-not-allowed' 
                 : selectedSize 
                   ? 'bg-zinc-900 text-white hover:bg-purple-600 hover:shadow-2xl active:scale-95 cursor-pointer' 
                   : 'bg-zinc-200 text-zinc-400 cursor-not-allowed' 
             }`}
           >
-            {product.stockLevel === 0 ? 'Out of Stock' : selectedSize ? 'Add to Cart' : 'Select a Size'}
+            {product.stockLevel === 0 
+              ? 'Out of Stock' 
+              : isMaxStockReached 
+                ? 'Vault Limit Reached' 
+                : selectedSize 
+                  ? 'Add to Cart' 
+                  : 'Select a Size'}
           </button>
           
         </div>

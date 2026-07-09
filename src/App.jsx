@@ -52,12 +52,25 @@ export default function App() {
     setCartItems(prevItems => prevItems.filter((_, index) => index !== indexToRemove));
   };
 
-  const handleUpdateQuantity = (index, amount) => {
-    if (amount === 1) { setGlowingItemIndex(index); setTimeout(() => setGlowingItemIndex(null), 300); }
+const handleUpdateQuantity = (index, amount) => {
+    if (amount === 1) { 
+      setGlowingItemIndex(index); 
+      setTimeout(() => setGlowingItemIndex(null), 300); 
+    }
     setCartItems(prev => {
       const newCart = [...prev];
-      const newQuantity = newCart[index].quantity + amount; 
-      return newQuantity < 1 ? prev.filter((_, i) => i !== index) : Object.assign(newCart, { [index]: { ...newCart[index], quantity: newQuantity }});
+      const currentItem = newCart[index];
+      const trueStock = inventory.find(shoe => shoe.id === currentItem.id)?.stockLevel || 0;
+      if (amount === 1 && currentItem.quantity >= trueStock) {
+        return prev;
+      }
+      const newQuantity = currentItem.quantity + amount; 
+      
+      if (newQuantity < 1) {
+        return prev.filter((_, i) => i !== index);
+      }
+      newCart[index] = { ...currentItem, quantity: newQuantity };
+      return newCart;
     });
   };
 
@@ -149,6 +162,7 @@ export default function App() {
             <Route path="/security" element={<Security />} />
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<Auth onLogin={(userData) => setCurrentUser(userData)} />} />
+            <Route path="/product/:id" element={<ProductDetail inventory={inventory} cartItems={cartItems} onAddToCart={handleAddToCart} onTrackView={handleTrackView} />} />
           </Routes>
         </div>
 
