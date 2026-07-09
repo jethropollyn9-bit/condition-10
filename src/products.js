@@ -80,7 +80,7 @@ export const featuredSneakers = [
     images: ["https://images.asics.com/is/image/asics/1183C102_751_SB_FR_GLB?qlt=80&wid=1280&hei=1452&bgc=255,255,255&resMode=bisharp"]
   },
   {
-    id: 17, brand: "Lanvin", name: "Curb Sneakers in Canvas 'Camel'", price: 120, gender: "Unisex", color: "Camel", stockLevel: 5,
+    id: 17, brand: "Lanvin", name: "Curb Sneakers in Canvas 'Camel'", price: 120, gender: "Unisex", color: "brown", stockLevel: 5,
     description: "The Curb sneaker embodies the vibrant spirit of the 90s, with its bold, oversized silhouette and signature oversized laces made in Greece.",
     images: ["https://gb.lanvin.com/cdn/shop/files/FU-SKDK12-CANV-P2666S3_2.jpg?v=1776263394&width=1600"]
   },
@@ -101,14 +101,92 @@ export const featuredSneakers = [
   },
   {
     id: 21,
-    name: "Jordan 4 Retro", brand: "Nike", price: 340, gender: "Men", color: "Red", stockLevel: 4,
-    description: "The Toro Bravo colorway brings a bold, striking red suede upper to the classic Jordan 4 silhouette. A perfect statement piece to turn heads at any party.",     
-    images: ["https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80"],
+    name: "Nike Air Max 95", brand: "Men", price: 130, gender: "Men", color: "Grey/white/pink", stockLevel: 4,
+    description: "The Big Bubble is back. Cop these men's Nike Air Max 95 trainers in the legendary 'OG Pink Foam' colourway. Inspired by human anatomy, these creps have an airy mesh upper with synthetic leather overlays to make that iconic wavy silhouette. They have a rope lace closure and thick padding around the collar and tongue to lock you in, and sit above visible Max Air cushioning for supreme comfort and a bold look. With a tough rubber tread and flex grooves in the sole, they're finished with signature Nike branding throughout.",     
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_752014_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
   },
   {
     id: 22,
-    name: "Travis Scott x Air Jordan 1 Low", brand: "Nike", price: 1150, gender: "Unisex", color: "Brown/White", stockLevel: 2,
-    description: "The Reverse Mocha flips the iconic brown and sail color-blocking. Featuring premium suede and the signature oversized backward Swoosh, it is the ultimate casual grail.",
-    images: ["https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80"],
+    name: "New Balance 530 Junior", brand: "New Balance", price: 80, gender: "Unisex", color: "White", stockLevel: 2,
+    description: "Get a classic look added to your crep collection with these juniors' 530 trainers by New Balance. In a White colourway, these running-inspired sneaks have a breathable textile upper with synthetic overlays to provide added support. They feature a lace fastening for a secure fit, a low-cut padded ankle collar to give you a snug feel, whilst the heel pull tab allows for easy on-and-off. Underfoot is an ABZORB midsole for responsive cushionied comfort with every step, and a rubber outsole to bring you total traction. Signed off with New Balance branding throughout.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_686056_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 23,
+    name: "Nike Air Max Moto 2K Women's", brand: "Nike", price: 120, gender: "Women", color: "White/Brown", stockLevel: 3,
+    description: "OG running energy from the Swoosh. These women's Air Max Moto 2K sneakers from Nike have a breathable mesh upper with synthetic leather overlays. With a padded collar for support, they sit on Max Air cushioning for a smooth ride and a grippy rubber outsole for firm traction. Landing in white, British Khaki and Metallic Silver, they're finished with signature Swoosh branding throughout.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_799706_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],    
+  },
+  {
+    id: 24,
+    name: "Nike Air Max 95 BB Tech Men's", brand: "Nike", price: 175, gender: "Men", color: "White/Grey/Blue", stockLevel: 5,
+    description:"A Swoosh icon gets a refresh in these men's Nike Air Max 95 BB Tech trainers. In Smoke Grey with Football Blue accents, these creps have a distinct wavy silhouette with a coated mesh upper and synthetic layers. Classic laces lock you in, and a thick foam midsole with 'Big Bubble' Air units cushion your step. With a rubber sole for grip, they're finished with signature Swoosh branding.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_800023_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 25,
+    name: "PUMA Speedcat Ballet Dress-Up Women's", brand: "PUMA", price: 75, gender: "Women", color: "White/Black", stockLevel: 6,
+    description: "ay to night vibes from PUMA. These women's Speedcat Ballet Dress-Up slip-ons have a leather upper in white. They've got a super slimline design with an OrthoLite insole for light cushioning. A snake print buckle secures the fit, and a contrast rubber tread keeps you gripped. Finished with signature branding.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_801415_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 26,
+    name: "Salomon XT-6 Expanse", brand: "Salomon", price: 145, gender: "Unisex", color: "Grey/blue", stockLevel: 4,
+    description: "The Salomon XT-6 Expanse is a trail running shoe that combines performance and style. It features a breathable mesh upper with synthetic overlays for support, a cushioned midsole for comfort, and a durable rubber outsole for traction on various terrains. The shoe is designed for both casual wear and outdoor adventures.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_781063_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 27,
+    name: "Nike Flex Train", brand: "Nike", price: 75, gender: "Unisex", color: "Black/White/red", stockLevel: 7,
+    description: "The Nike Flex Train is a versatile training shoe that offers comfort and support for various workouts. It features a breathable mesh upper with synthetic overlays for durability, a cushioned midsole for responsive cushioning, and a durable rubber outsole for traction. The shoe is designed for both indoor and outdoor training sessions.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_HV9972-004_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 28,
+    name: "Nike A.MONARCH IV", brand: "Nike", price: 75, gender: "Unisex", color: "Brown/White", stockLevel: 5,
+    description: "The Nike A.MONARCH IV is a classic running shoe that combines style and performance. It features a leather upper for durability, a cushioned midsole for comfort, and a rubber outsole for traction. The shoe is designed for everyday wear and light running activities.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_415445-004_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 29,
+    name: "Nike P-6000 Women's", brand: "Nike", price: 110, gender: "Women", color: "White/Brown", stockLevel: 6,
+    description: "The Nike P-6000 Women's is a retro-inspired running shoe that combines style and comfort. It features a breathable mesh upper with synthetic overlays for support, a cushioned midsole for responsive cushioning, and a durable rubber outsole for traction. The shoe is designed for casual wear and light running activities.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_799715_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 30,
+    name: "The North Face CLYFFE TREK", brand: "The North Face", price: 130, gender: "Unisex", color: "Brown/Black", stockLevel: 4,
+    description: "The North Face CLYFFE TREK is a rugged hiking shoe designed for outdoor adventures. It features a durable leather and mesh upper for breathability and support, a cushioned midsole for comfort, and a Vibram rubber outsole for superior traction on various terrains. The shoe is ideal for hiking, trekking, and other outdoor activities.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_NF0A8G5CPB11_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 31,
+    name: "ASICS GT-2160", brand: "ASICS", price: 120, gender: "Women", color: "White/Pink", stockLevel: 5,
+    description: "The ASICS GT-2160 is a versatile running shoe that offers comfort and support for various workouts. It features a breathable mesh upper with synthetic overlays for durability, a cushioned midsole for responsive cushioning, and a durable rubber outsole for traction. The shoe is designed for both indoor and outdoor training sessions.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_798395_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 32,
+    name: "New Balance ABZORB 2000", brand: "New Balance", price: 170, gender: "Men", color: "Grey/Black", stockLevel: 3,
+    description: "The New Balance ABZORB 2000 is a high-performance running shoe that combines style and comfort. It features a breathable mesh upper with synthetic overlays for support, an ABZORB midsole for superior cushioning, and a durable rubber outsole for traction. The shoe is designed for serious runners and casual wearers alike.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_788437_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 33,
+    name: "Salomon XT-6 Women's", brand: "Salomon", price: 165, gender: "Women", color: "White", stockLevel: 4,
+    description: "The Salomon XT-6 Women's is a versatile hiking shoe that offers comfort and support for various outdoor activities. It features a durable leather and mesh upper for breathability and support, a cushioned midsole for comfort, and a Vibram rubber outsole for superior traction on various terrains. The shoe is ideal for hiking, trekking, and other outdoor activities.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_395074_plc&qlt=92&w=726&h=926&v=1&fmt=auto"]
+  },
+  {
+    id: 34,
+    name: "adidas Originals Handball Spezial Junior", brand: "adidas", price: 70, gender: "Women", color: "Brown", stockLevel: 5,
+    description: "The adidas Originals Handball Spezial Junior is a stylish and comfortable shoe designed for young athletes. It features a synthetic upper for durability, a cushioned midsole for comfort, and a rubber outsole for traction. The shoe is ideal for indoor and outdoor sports activities.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_797110_plc&qlt=92&w=726&h=926&v=1&fmt=auto"],
+  },
+  {
+    id: 35,
+    name: "Birkenstock Boston", brand: "Birkenstock", price: 70, gender: "Unisex", color: "Brown", stockLevel: 3,
+    description: "The Birkenstock Boston is a comfortable and stylish shoe that offers excellent support and durability. It features a soft leather upper for comfort, a cushioned footbed for support, and a durable rubber outsole for traction. The shoe is ideal for casual wear and light activities.",
+    images: ["https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_708090_plc&qlt=92&w=726&h=926&v=1&fmt=auto"]
   }
 ];
