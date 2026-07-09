@@ -52,7 +52,7 @@ export default function ProductDetail({ inventory, cartItems = [], onAddToCart, 
             </div>
           </div>
           
-          {/* UPGRADED ADD TO CART BUTTON */}
+          {/* 3. UPGRADED ADD TO CART BUTTON WITH VAULT LIMIT TEXT */}
           <button 
             disabled={product.stockLevel === 0 || !selectedSize || isMaxStockReached} 
             onClick={() => onAddToCart({ ...product, selectedSize })} 

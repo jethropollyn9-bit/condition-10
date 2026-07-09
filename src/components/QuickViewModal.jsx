@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
-export default function QuickViewModal({ product, onClose, onAddToCart }) {
+export default function QuickViewModal({ product, cartItems = [], onClose, onAddToCart }) {
   const [selectedSize, setSelectedSize] = useState(null);
   const availableSizes = ['UK 5', 'UK 6', 'UK 7', 'UK 8', 'UK 9', 'UK 10', 'UK 11', 'UK 12'];
 
   if (!product) return null;
+  const qtyInCart = cartItems.filter(item => item.id === product.id).reduce((sum, item) => sum + item.quantity, 0);
+  const isMaxStockReached = qtyInCart >= product.stockLevel;
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6">
@@ -30,17 +32,23 @@ export default function QuickViewModal({ product, onClose, onAddToCart }) {
            
            {/* UPGRADED QUICK VIEW ADD TO CART BUTTON */}
            <button 
-             disabled={product.stockLevel === 0 || !selectedSize} 
+             disabled={product.stockLevel === 0 || !selectedSize || isMaxStockReached} 
              onClick={() => { onAddToCart({ ...product, selectedSize }); onClose(); }} 
              className={`py-4 rounded-full font-bold uppercase tracking-widest transition-all shadow-xl ${
-               product.stockLevel === 0
+               product.stockLevel === 0 || isMaxStockReached
                  ? 'bg-zinc-200 text-zinc-500 cursor-not-allowed' 
                  : selectedSize 
                    ? 'bg-zinc-900 text-white hover:bg-purple-600 hover:shadow-2xl active:scale-95 cursor-pointer' 
                    : 'bg-zinc-200 text-zinc-400 cursor-not-allowed' 
              }`}
            >
-              {product.stockLevel === 0 ? 'Out of Stock' : selectedSize ? 'Add to Cart' : 'Select a Size'}
+              {product.stockLevel === 0 
+                ? 'Out of Stock' 
+                : isMaxStockReached 
+                  ? 'Vault Limit Reached' 
+                  : selectedSize 
+                    ? 'Add to Cart' 
+                    : 'Select a Size'}
            </button>
         </div>
       </div>

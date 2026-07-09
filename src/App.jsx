@@ -33,9 +33,15 @@ export default function App() {
 
   const handleTrackView = (shoe) => setRecentlyViewed((prev) => [shoe, ...prev.filter(item => item.id !== shoe.id)].slice(0, 4));
 
-  const handleAddToCart = (shoeData) => {
+const handleAddToCart = (shoeData) => {
     const itemSize = shoeData.selectedSize || 'UK 9';
+    
     setCartItems(prev => {
+      const totalQtyInCart = prev.filter(item => item.id === shoeData.id).reduce((sum, item) => sum + item.quantity, 0);
+      const trueStock = inventory.find(shoe => shoe.id === shoeData.id)?.stockLevel || 0;
+      if (totalQtyInCart >= trueStock) {
+        return prev;
+      }
       const index = prev.findIndex(item => item.id === shoeData.id && item.selectedSize === itemSize);
       if (index >= 0) {
         const newCart = [...prev];
@@ -158,7 +164,7 @@ const handleUpdateQuantity = (index, amount) => {
           <Routes>
             <Route path="/" element={<Home inventory={inventory} onAddToCart={handleAddToCart} recentlyViewed={recentlyViewed} />}/>            
             <Route path="/shop" element={<Shop inventory={inventory} onQuickView={(shoe) => { setQuickViewItem(shoe); handleTrackView(shoe); }} recentlyViewed={recentlyViewed} />}/>
-            <Route path="/product/:id" element={<ProductDetail inventory={inventory} onAddToCart={handleAddToCart} onTrackView={handleTrackView} />} />               
+            <Route path="/product/:id" element={<ProductDetail inventory={inventory} cartItems={cartItems} onAddToCart={handleAddToCart} onTrackView={handleTrackView} />} />       
             <Route path="/security" element={<Security />} />
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<Auth onLogin={(userData) => setCurrentUser(userData)} />} />
@@ -167,7 +173,7 @@ const handleUpdateQuantity = (index, amount) => {
         </div>
 
         {/* MODALS & OVERLAYS */}
-        <QuickViewModal product={quickViewItem} onClose={() => setQuickViewItem(null)} onAddToCart={handleAddToCart} />
+        <QuickViewModal product={quickViewItem} cartItems={cartItems} onClose={() => setQuickViewItem(null)} onAddToCart={handleAddToCart} />
 
         {isCartOpen && <div className="fixed inset-0 bg-zinc-900/40 backdrop-blur-sm z-[110] transition-opacity" onClick={handleCloseDrawer}></div>}
 
